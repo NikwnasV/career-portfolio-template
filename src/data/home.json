@@ -1,7 +1,7 @@
 {
   "name": "Nikonas Varsakis",
   "photoUrl": "favicon.svg",
-  "intro": "An Informatics and Computer Engineering student, who works in the IT industry, installing and configuring FreePBX and Yeastar call centers, Fortigate Firewalls, providing IT Support among others.",
+  "intro": "An Informatics and Computer Engineering student working in the IT industry,<br>installing and configuring FreePBX, Yeastar, and Fortigate Firewalls,<br>and providing comprehensive IT Support.",
   "introHtml": "An Informatics and Computer Engineering student working in the IT industry. I specialize in installing and configuring <span class='text-white font-bold'>FreePBX</span> and Yeastar call centers, managing <span class='text-white font-bold'>Fortigate Firewalls</span>, and providing comprehensive <span class='text-white font-bold'>IT Support</span>.",
   "webpageTitle": "Nikonas Varsakis",
   "resumeUrl": "",
@@ -40,7 +40,7 @@
     },
     {
       "name": "Whatsapp",
-      "url": "https://wa.me/[YOUR_WHATSAPP_NUMBER]",
+      "url": "#",
       "icon": "mdi:whatsapp",
       "showInContact": false
     },

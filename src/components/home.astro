@@ -83,7 +83,7 @@ const profileImage = await resolveAssetImage(photoUrl);
     />
   </div>
 
-  <div class="mt-8 mb-4 reveal-content" style="animation-delay: 400ms;">
+  {/* <div class="mt-8 mb-4 reveal-content" style="animation-delay: 400ms;">
     <a 
       href={resumeUrl} 
       target="_blank" 
@@ -114,6 +114,7 @@ const profileImage = await resolveAssetImage(photoUrl);
       <div class="absolute inset-0 rounded-full blur-md bg-accent/20 -z-10 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500"></div>
     </a>
 </div>
+*/}
 
   <div class="flex gap-6 mt-4 reveal-content" style="animation-delay: 500ms;">
     {socials.filter((social) => social.url && social.url !== "#" && social.url !== "").map((social) => (
