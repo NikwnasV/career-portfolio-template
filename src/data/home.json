@@ -1,22 +1,22 @@
 {
-  "name": "John Doe",
+  "name": "Nikonas Varsakis",
   "photoUrl": "favicon.svg",
-  "intro": "A brief, compelling introduction about who you are and what you do. Mention your core philosophy, your passion for building digital products, and your drive for creating efficient, high-impact solutions.",
-  "introHtml": "A brief, compelling introduction about who you are and what you do. Mention your core <span class='text-white font-bold'>philosophy</span>, your passion for building digital products, and your drive for creating <span class='text-white font-bold'>efficient</span>, <span class='text-white font-bold'>high-impact</span> solutions.",
-  "webpageTitle": "John Doe",
-  "resumeUrl": "https://example-files.online-convert.com/document/pdf/example.pdf",
+  "intro": "An Informatics and Computer Engineering student, who works in the IT industry, installing and configuring FreePBX and Yeastar call centers, Fortigate Firewalls, providing IT Support among others.",
+  "introHtml": "An Informatics and Computer Engineering student working in the IT industry. I specialize in installing and configuring <span class='text-white font-bold'>FreePBX</span> and Yeastar call centers, managing <span class='text-white font-bold'>Fortigate Firewalls</span>, and providing comprehensive <span class='text-white font-bold'>IT Support</span>.",
+  "webpageTitle": "Nikonas Varsakis",
+  "resumeUrl": "",
 
   "_comment": "Add your social links below. Leave the 'url' empty to hide the icon. Set 'showInContact' to true or false to control if it appears in the Contact section.",
   "socials": [
     {
       "name": "GitHub",
-      "url": "https://github.com/[YOUR_USER_NAME]",
+      "url": "https://github.com/nikwnasv",
       "icon": "mdi:github",
       "showInContact": true
     },
     {
       "name": "LinkedIn",
-      "url": "https://linkedin.com/in/[YOUR_USER_NAME]",
+      "url": "https://www.linkedin.com/in/nikonas-varsakis-467185333/",
       "icon": "mdi:linkedin",
       "showInContact": true
     },
@@ -34,7 +34,7 @@
     },
     {
       "name": "Email",
-      "url": "mailto:your-mail@example.com",
+      "url": "mailto:nikon@nvarsakis.gr",
       "icon": "mdi:email",
       "showInContact": true
     },
@@ -42,7 +42,7 @@
       "name": "Whatsapp",
       "url": "https://wa.me/[YOUR_WHATSAPP_NUMBER]",
       "icon": "mdi:whatsapp",
-      "showInContact": true
+      "showInContact": false
     },
     {
       "name": "Facebook",
@@ -58,9 +58,9 @@
     },
     {
       "name": "Instagram",
-      "url": "#",
+      "url": "https://www.instagram.com/nikwnasv/",
       "icon": "mdi:instagram",
-      "showInContact": false
+      "showInContact": true
     },
     {
       "name": "Twitter",

@@ -1,20 +1,56 @@
 [
   {
-    "title": "Awesome Website",
-    "description": "A high-performance, SEO-optimized web application built with modern frameworks to showcase technical expertise.",
-    "images": ["astro-01.webp", "astro-02.jpeg"],
-    "tech": ["Astro", "Tailwind"],
-    "platforms": ["web"],
-    "link": "https://astro.build/themes/details/career-portfolio-data-driven-astro-ssg/",
-    "category": "Published Website"
+    "title": "Event Media Cloud (Immich)",
+    "description": "A private, self-hosted photo and video sharing platform provided to clients for weddings and events. Guests can seamlessly upload high-resolution media directly to the server via a custom QR code.",
+    "images": [],
+    "tech": ["Immich", "Docker", "Nginx Proxy Manager", "Self-Hosted"],
+    "platforms": ["web", "mobile"],
+    "link": "https://cloud.nvarsakis.gr/s/wedding",
+    "category": "Client Service"
   },
   {
-    "title": "Demo Mobile App",
-    "description": "A high-performance mobile application built with modern frameworks to showcase technical expertise.",
-    "images": ["astro-02.jpeg", "#"],
-    "tech": ["Flutter", "Dart", "REST API"],
-    "platforms": ["apple-ios", "android"],
-    "link": "https://github.com/nbakh16/career-portfolio-template",
-    "category": "Hobby"
+    "title": "Secure File Exchange",
+    "description": "A high-speed, self-hosted file sharing platform utilizing Pingvin Share, designed for secure, private data transfers without relying on third-party cloud limits.",
+    "images": [],
+    "tech": ["Pingvin Share", "Docker", "Web Infrastructure"],
+    "platforms": ["web"],
+    "link": "https://nv.etrix.gr",
+    "category": "Infrastructure"
+  },
+  {
+    "title": "Enterprise Home Lab & VPN",
+    "description": "Advanced network architecture featuring a double-NAT MikroTik setup to provide secure, encrypted remote VPN access to internal server environments and services.",
+    "images": [],
+    "tech": ["MikroTik", "VPN", "Routing", "Network Security"],
+    "platforms": ["infrastructure"],
+    "link": "",
+    "category": "Networking"
+  },
+  {
+    "title": "VoIP Telephony Server",
+    "description": "Fully configured and virtualized FreePBX system handling internal communications routing and SIP trunking, with a strictly isolated management interface for security.",
+    "images": [],
+    "tech": ["FreePBX", "VoIP", "SIP", "Linux"],
+    "platforms": ["infrastructure"],
+    "link": "",
+    "category": "Telephony"
+  },
+  {
+    "title": "RideLink",
+    "description": "An IoT mobile application project built for vehicle navigation and real-time notifications, utilizing an ESP32 microcontroller to interface with an external display.",
+    "images": [],
+    "tech": ["ESP32", "C++", "IoT", "Embedded Systems"],
+    "platforms": ["hardware", "mobile"],
+    "link": "",
+    "category": "Hardware / IoT"
+  },
+  {
+    "title": "TheseusCheckIn",
+    "description": "A desktop visitor management application built with Java and Maven. Features a robust MVC architecture, SQL database integration, and a packaged Windows installer.",
+    "images": [],
+    "tech": ["Java", "Maven", "SQL", "MVC"],
+    "platforms": ["desktop"],
+    "link": "",
+    "category": "Software Development"
   }
 ]
