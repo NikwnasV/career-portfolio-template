@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  landing-page:
+    build: .
+    container_name: nvarsakis-landing
+    restart: unless-stopped
+    ports:
+      - "8080:80" # Maps the container's port 80 to your server's 8085
