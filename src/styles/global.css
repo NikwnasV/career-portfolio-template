@@ -118,17 +118,17 @@
   }
 
   body {
-    @apply font-body antialiased text-maintext;
-    background: linear-gradient(
-      135deg,    
-      color-mix(in srgb, var(--color-background), black 16%) 0%,
-      var(--color-background) 50%,
-      color-mix(in srgb, var(--color-background), white 16%) 100%
-    );
-    background-attachment: fixed;
-    min-height: 100vh;
-    /*Transition for theme switching*/
-    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  @apply font-body antialiased text-maintext;
+  /* Use black-mix instead of white-mix to ensure it stays dark */
+  background: linear-gradient(
+    135deg,    
+    color-mix(in srgb, var(--color-background), black 16%) 0%,
+    var(--color-background) 50%,
+    color-mix(in srgb, var(--color-background), black 8%) 100%
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
   }
 }
 
