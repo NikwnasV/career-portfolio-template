@@ -85,10 +85,19 @@ const profileImage = await resolveAssetImage(photoUrl);
   </div>
 
   <div class="mt-8 mb-4 flex flex-wrap justify-center gap-3 reveal-content" style="animation-delay: 400ms;">
-    <a href="#projects" class="inline-flex items-center justify-center min-h-12 px-6 py-3 rounded-full bg-accent text-background font-medium hover:opacity-90 transition-opacity">View projects</a>
-    <a href="#contact" class="inline-flex items-center justify-center min-h-12 px-6 py-3 rounded-full border border-accent/40 text-maintext hover:bg-accent/10 transition-colors">Get in touch</a>
+    <a href="#projects" class="hero-action group">
+      <span class="hero-action-label">View projects</span>
+      <span class="hero-action-caption">Explore my work</span>
+    </a>
+    <a href="#contact" class="hero-action group">
+      <span class="hero-action-label">Get in touch</span>
+      <span class="hero-action-caption">Let's talk</span>
+    </a>
     {resumeUrl?.trim() && resumeUrl.trim() !== '#' && (
-      <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center min-h-12 px-6 py-3 rounded-full border border-accent/40 text-maintext hover:bg-accent/10 transition-colors">View résumé</a>
+      <a href={resumeUrl} target="_blank" rel="noopener noreferrer" class="hero-action group">
+        <span class="hero-action-label">View résumé</span>
+        <span class="hero-action-caption">Open résumé</span>
+      </a>
     )}
   </div>
 
@@ -116,6 +125,36 @@ const profileImage = await resolveAssetImage(photoUrl);
 
 
 <style is:global>
+  .hero-action {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.5rem;
+    min-width: 10rem;
+    padding: 0.5rem 2rem;
+    border: 1px solid color-mix(in srgb, var(--color-accent) 50%, transparent);
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    color: var(--color-maintext);
+    transition: transform 300ms, box-shadow 300ms;
+  }
+  .hero-action:hover, .hero-action:focus-visible {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+  .hero-action-label { font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.025em; transition: transform 300ms; }
+  .hero-action-caption { font-size: 0.6875rem; color: var(--color-subtext); transition: opacity 300ms; }
+  @media (hover: hover) and (min-width: 768px) {
+    .hero-action-label { transform: translateY(0.4rem); }
+    .hero-action-caption { opacity: 0; }
+    .hero-action:hover .hero-action-label, .hero-action:focus-visible .hero-action-label { transform: none; }
+    .hero-action:hover .hero-action-caption, .hero-action:focus-visible .hero-action-caption { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-action:hover, .hero-action:focus-visible { transform: none; }
+  }
+
   .reveal-content {
     opacity: 0;
     transform: translateY(20px);

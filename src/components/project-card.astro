@@ -17,7 +17,7 @@ const isSlider = validImages.length > 1;
 ---
 
 <div class="project-card group relative bg-accent/5 border border-accent/10 rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-500">
-  <div class="aspect-video overflow-hidden relative bg-background/50">
+  <div class={`aspect-video overflow-hidden relative ${project.imageStyle === "logo" ? "project-logo-surface" : "bg-background/50"}`}>
     <div class="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
     
     <div class={`w-full h-full relative ${isSlider ? 'image-slider' : ''}`}>
@@ -26,17 +26,16 @@ const isSlider = validImages.length > 1;
           validImages.map((imgMetadata, index) => (
             <Image
               src={imgMetadata}
-              alt={`${project.title}`}
-              class={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${index === 0 ? "opacity-100 z-0" : "opacity-0 z-[-1]"}`}
+              alt={project.imageStyle === "logo" ? `${project.tech[0]} logo` : project.title}
+              class={`absolute inset-0 w-full h-full ${project.imageStyle === "logo" ? "object-contain p-10 md:p-12" : "object-cover"} transition-all duration-1000 group-hover:scale-105 ${index === 0 ? "opacity-100 z-0" : "opacity-0 z-[-1]"}`}
             />
           ))
         ) : (
-          /* Fallback box if array is empty or filenames are missing */
-          <img
-            src="/placeholder.jpeg"
-            alt={`${project.title} placeholder`}
-            class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
-          />
+          <div class="project-identity flex flex-col items-center justify-center gap-3 w-full h-full p-8 text-center">
+            <Icon name={project.visualIcon || 'mdi:code-braces'} class="w-14 h-14 text-accent" />
+            <span class="font-heading text-2xl font-bold text-maintext">{project.visualLabel || project.title}</span>
+            {project.visualSubtitle && <span class="text-xs text-subtext">{project.visualSubtitle}</span>}
+          </div>
         )
       }
     </div>
@@ -64,6 +63,8 @@ const isSlider = validImages.length > 1;
     <p class="text-subtext text-sm font-body">
       {project.description}
     </p>
+
+    {project.linkLabel && project.link && <a href={project.link} class="inline-flex text-sm text-accent underline underline-offset-4">{project.linkLabel} →</a>}
 
     <div class="flex flex-wrap gap-2 pt-2">
       {project.tech.map((t: string) => (
@@ -105,6 +106,13 @@ const isSlider = validImages.length > 1;
 </script>
 
 <style is:global>
+  .project-logo-surface {
+    /* A consistent light surface keeps the original brand colours readable in both themes. */
+    background: #f5f5fa;
+  }
+  .project-identity {
+    background: radial-gradient(ellipse at center, color-mix(in srgb, var(--color-accent) 12%, transparent), transparent 75%);
+  }
   .project-card {
     opacity: 0;
     visibility: hidden;

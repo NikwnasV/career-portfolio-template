@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="CareVisit | Interactive visitor management demo" description="Try an illustrative barcode check-in and check-out workflow with fictional visitor records.">
+  <section class="section-container max-w-4xl mx-auto">
+    <a href="/#projects" class="text-accent underline underline-offset-4">← Back to projects</a>
+    <p class="text-accent text-xs uppercase tracking-widest mt-10 mb-3">Interactive portfolio demo</p>
+    <h1 class="font-heading font-bold text-4xl md:text-5xl">CareVisit</h1>
+    <p class="text-subtext mt-4 max-w-2xl leading-relaxed">Visitor check-in and check-out for a rehabilitation centre. Try the barcode workflow below using fictional visitors.</p>
+    <p class="text-subtext text-sm mt-3 max-w-2xl leading-relaxed">This is an illustrative browser simulation, not the original Java desktop interface. The desktop application uses MySQL; this demo keeps sample activity in memory and resets when you reload.</p>
+    <noscript><p class="mt-6 text-accent">Enable JavaScript to try the interactive demo.</p></noscript>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6">
+        <h2 class="font-heading font-bold text-xl">1. Choose a sample barcode</h2>
+        <p class="text-subtext text-sm mt-2">Select a visitor below, or type a code. A scanner that types a barcode and presses Enter can use the same field.</p>
+        <div class="flex flex-wrap gap-3 mt-5">
+          <button type="button" data-sample="CV-1001" class="demo-button">Visitor A · CV-1001</button>
+          <button type="button" data-sample="CV-1002" class="demo-button">Visitor B · CV-1002</button>
+        </div>
+        <form id="barcode-form" class="mt-6">
+          <label for="barcode" class="block font-medium">2. Scan or enter a barcode</label>
+          <input id="barcode" name="barcode" required autocomplete="off" spellcheck="false" maxlength="32" placeholder="e.g. CV-1001" class="mt-2 w-full rounded-lg border border-accent/30 bg-background p-3 text-maintext" aria-describedby="scan-help" />
+          <p id="scan-help" class="text-subtext text-xs mt-2">First scan checks the visitor in. Scanning the same code again checks them out.</p>
+          <button type="submit" class="demo-button mt-4">Process barcode</button>
+        </form>
+        <p id="scan-status" role="status" aria-live="polite" class="mt-5 text-sm text-accent min-h-10">Ready. Choose a sample visitor to begin.</p>
+      </div>
+      <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6">
+        <h2 class="font-heading font-bold text-xl">Visitors currently inside</h2>
+        <p class="mt-3 text-4xl font-heading text-accent" id="inside-count">0</p>
+        <ul id="inside-list" class="mt-5 space-y-3 text-sm text-subtext"><li>No active visits.</li></ul>
+      </div>
+    </div>
+    <div class="rounded-2xl border border-accent/20 bg-accent/5 p-6 mt-6">
+      <div class="flex flex-wrap gap-4 items-center justify-between">
+        <h2 class="font-heading font-bold text-xl">Visit activity</h2>
+        <button type="button" id="reset-demo" class="demo-button">Reset demo</button>
+      </div>
+      <p class="text-subtext text-xs mt-2">Latest 30 sample events. Times use your browser's timezone.</p>
+      <ol id="activity-list" class="mt-5 space-y-3 text-sm text-subtext"><li>No activity yet.</li></ol>
+    </div>
+  </section>
+</Layout>
+<style>
+  .demo-button { padding: 0.65rem 1rem; border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent); border-radius: 0.75rem; background: color-mix(in srgb, var(--color-accent) 8%, transparent); color: var(--color-maintext); cursor: pointer; }
+  .demo-button:hover { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+</style>
+<script>
+  const visitors = new Map([['CV-1001', 'Visitor A'], ['CV-1002', 'Visitor B']]);
+  const active = new Map<string, Date>();
+  const events: string[] = [];
+  const form = document.querySelector<HTMLFormElement>('#barcode-form')!;
+  const input = document.querySelector<HTMLInputElement>('#barcode')!;
+  const status = document.querySelector<HTMLElement>('#scan-status')!;
+  const count = document.querySelector<HTMLElement>('#inside-count')!;
+  const inside = document.querySelector<HTMLUListElement>('#inside-list')!;
+  const activity = document.querySelector<HTMLOListElement>('#activity-list')!;
+  const time = (date: Date) => date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  function renderList(list: HTMLElement, values: string[], empty: string) {
+    list.replaceChildren();
+    for (const value of values.length ? values : [empty]) {
+      const item = document.createElement('li');
+      item.textContent = value;
+      list.append(item);
+    }
+  }
+  function render() {
+    count.textContent = String(active.size);
+    renderList(inside, Array.from(active, ([code, date]) => `${visitors.get(code)} · ${code} · since ${time(date)}`), 'No active visits.');
+    renderList(activity, events, 'No activity yet.');
+  }
+  document.querySelectorAll<HTMLButtonElement>('[data-sample]').forEach(button => {
+    button.addEventListener('click', () => {
+      input.value = button.dataset.sample!;
+      input.focus();
+    });
+  });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const code = input.value.trim().toUpperCase();
+    const visitor = visitors.get(code);
+    if (!visitor) {
+      status.textContent = 'Barcode not recognised. Use CV-1001 or CV-1002. No visit was changed.';
+      input.select();
+      return;
+    }
+    const now = new Date();
+    const arrived = active.get(code);
+    const action = arrived ? 'Checked out' : 'Checked in';
+    if (arrived) active.delete(code); else active.set(code, now);
+    const duration = arrived ? ` · Visit duration: ${Math.floor((now.getTime() - arrived.getTime()) / 60000)} min` : '';
+    const message = `${action}: ${visitor} · ${code}${duration}`;
+    events.unshift(`${time(now)} · ${message}`);
+    events.splice(30);
+    status.textContent = message;
+    render();
+    input.value = '';
+    input.focus();
+  });
+  document.querySelector('#reset-demo')!.addEventListener('click', () => {
+    active.clear(); events.length = 0; render(); input.value = '';
+    status.textContent = 'Demo reset. All sample visits and activity were cleared.';
+    input.focus();
+  });
+</script>
