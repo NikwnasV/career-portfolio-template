@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="CareVisit | Interactive visitor management demo" description="Explore a source-informed demo of a Java desktop visitor management system: barcode scanning, visitor logs, staff cards, and CSV export.">
+  <section class="section-container max-w-6xl mx-auto">
+    <a href="/#projects" class="text-accent underline underline-offset-4">← Back to projects</a>
+    <p class="text-accent text-xs uppercase tracking-widest mt-10 mb-3">Interactive portfolio demo</p>
+    <h1 class="font-heading font-bold text-4xl md:text-5xl">CareVisit</h1>
+    <p class="text-subtext mt-4 max-w-3xl leading-relaxed">Visitor management for a rehabilitation centre. Explore barcode check-in/out, visitor records, reusable staff cards, and CSV export.</p>
+    <p class="text-subtext text-sm mt-3 max-w-3xl leading-relaxed">This browser adaptation follows the supplied Java Swing / FlatLaf application's core workflow. It uses fictional data held in memory. Reloading or resetting clears your changes. The original desktop application uses MySQL; this demo is not connected to it.</p>
+    <noscript><p class="mt-6 text-accent">Enable JavaScript to try the interactive demo.</p></noscript>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-[2fr_1fr]">
+      <div class="demo-panel">
+        <h2 class="font-heading font-bold text-xl">Scan a card or register a visit</h2>
+        <p class="text-subtext text-sm mt-2">Choose a sample to fill the barcode field, then press Enter or Scan. A keyboard-style USB scanner can use the same input.</p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button type="button" data-sample="CV-1001" class="demo-button">Collaborator · CV-1001</button>
+          <button type="button" data-sample="CV-1002" class="demo-button">Doctor · CV-1002</button>
+          <button type="button" data-sample="CV-2001" class="demo-button">New visitor · CV-2001</button>
+        </div>
+        <form id="visit-form" class="grid gap-4 mt-6 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <label for="barcode">Barcode</label>
+            <div class="flex gap-2 mt-2">
+              <input id="barcode" name="barcode" required autocomplete="off" spellcheck="false" maxlength="50" placeholder="CV-1001" aria-describedby="scan-help" />
+              <button type="button" id="scan-barcode" class="demo-button">Scan</button>
+            </div>
+            <p id="scan-help" class="text-subtext text-xs mt-2">Known card: automatic IN/OUT. New barcode: complete the name and save manually.</p>
+          </div>
+          <div><label for="fullname">Full name</label><input id="fullname" name="fullname" maxlength="100" autocomplete="off" placeholder="Use fictional details" /></div>
+          <div><label for="room">Room (optional)</label><input id="room" name="room" maxlength="20" autocomplete="off" placeholder="A-101" /></div>
+          <div><label for="profession">Role</label><select id="profession"><option>Visitor</option><option>Collaborator</option><option>Doctor</option><option>Staff</option></select></div>
+          <fieldset class="flex gap-4 items-center"><legend class="mb-2">Direction</legend><label class="flex gap-2 items-center"><input type="radio" name="direction" value="IN" checked /> IN</label><label class="flex gap-2 items-center"><input type="radio" name="direction" value="OUT" /> OUT</label></fieldset>
+          <button type="submit" class="demo-button sm:col-span-2">Save visit</button>
+        </form>
+      </div>
+      <div class="demo-panel flex flex-col justify-center text-center">
+        <h2 class="font-heading font-bold text-xl">Currently inside</h2>
+        <p class="mt-4 text-6xl font-heading text-accent" id="inside-count">0</p>
+        <p class="text-subtext text-sm mt-4">Counted from the latest IN/OUT record for each barcode, just like the desktop application.</p>
+        <button type="button" id="view-current" aria-pressed="false" class="demo-button mt-6">Show current visitors</button>
+      </div>
+    </div>
+    <p id="scan-status" role="status" aria-live="polite" class="my-5 text-sm text-accent min-h-6">Ready. Try a known card, then scan it again to check out.</p>
+
+    <div class="demo-panel">
+      <div class="flex flex-wrap gap-4 items-center justify-between">
+        <h2 class="font-heading font-bold text-xl" id="log-heading">Visit history</h2>
+        <div class="flex flex-wrap gap-2"><button type="button" id="export-csv" class="demo-button">Export CSV</button><button type="button" id="reset-demo" class="demo-button">Reset demo</button></div>
+      </div>
+      <p class="text-subtext text-xs mt-3">Showing up to 100 records. Recent records can be deleted for five minutes. Times use your browser's timezone.</p>
+      <div class="overflow-x-auto mt-5" tabindex="0" role="region" aria-label="Scrollable visitor log">
+        <table class="w-full text-left text-sm whitespace-nowrap"><caption class="sr-only">Visitor check-in and check-out records</caption><thead><tr><th>ID</th><th>Barcode</th><th>Direction</th><th>Date & time</th><th>Full name</th><th>Room</th><th>Role</th><th>Action</th></tr></thead><tbody id="log-body"><tr><td colspan="8">No activity yet.</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <details class="demo-panel mt-6" id="staff-panel">
+      <summary class="cursor-pointer font-heading font-bold text-xl">Manage staff cards</summary>
+      <p class="text-subtext text-sm mt-3">Reusable cards fill in the name, role, and room when scanned. Saving an existing barcode updates its card; existing visit records stay unchanged.</p>
+      <form id="staff-form" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+        <div><label for="staff-barcode">Card barcode</label><input id="staff-barcode" required maxlength="50" autocomplete="off" /></div>
+        <div><label for="staff-name">Full name</label><input id="staff-name" required maxlength="100" autocomplete="off" /></div>
+        <div><label for="staff-room">Room (optional)</label><input id="staff-room" maxlength="20" autocomplete="off" /></div>
+        <div><label for="staff-role">Role</label><select id="staff-role"><option>Collaborator</option><option>Doctor</option><option>Staff</option></select></div>
+        <button type="submit" class="demo-button sm:col-span-2 lg:col-span-4">Save card</button>
+      </form>
+      <p id="staff-status" role="status" aria-live="polite" class="text-accent text-sm mt-4"></p>
+      <div class="overflow-x-auto mt-4" tabindex="0" role="region" aria-label="Scrollable staff cards"><table class="w-full text-left text-sm whitespace-nowrap"><caption class="sr-only">Registered staff cards</caption><thead><tr><th>Barcode</th><th>Full name</th><th>Room</th><th>Role</th><th>Actions</th></tr></thead><tbody id="staff-body"></tbody></table></div>
+    </details>
+  </section>
+</Layout>
+<style>
+  .demo-panel { border: 1px solid color-mix(in srgb, var(--color-accent) 20%, transparent); border-radius: 1rem; padding: 1.5rem; background: color-mix(in srgb, var(--color-accent) 5%, transparent); }
+  .demo-button { padding: 0.65rem 1rem; border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent); border-radius: 0.75rem; background: color-mix(in srgb, var(--color-accent) 8%, transparent); color: var(--color-maintext); cursor: pointer; font-size: 0.875rem; }
+  .demo-button:hover { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+  .demo-button:disabled { opacity: 0.4; cursor: not-allowed; }
+  label, legend { font-size: 0.875rem; }
+  input:not([type='radio']), select { display: block; width: 100%; min-width: 0; margin-top: 0.5rem; padding: 0.75rem; border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent); border-radius: 0.5rem; background: var(--color-background); color: var(--color-maintext); }
+  #barcode { margin-top: 0; }
+  input:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+  th, td { padding: 0.75rem; border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 15%, transparent); }
+  th { color: var(--color-subtext); font-weight: 500; }
+</style>
+<script>
+  import { CareVisitDemo, visitCsv, type Person, type Direction } from '../../lib/carevisit-demo';
+  const demo = new CareVisitDemo();
+  const field = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const form = document.getElementById('visit-form') as HTMLFormElement;
+  const staffForm = document.getElementById('staff-form') as HTMLFormElement;
+  const status = document.getElementById('scan-status')!;
+  const staffStatus = document.getElementById('staff-status')!;
+  const toggle = document.getElementById('view-current')!;
+  let currentOnly = false;
+  const visible = () => (currentOnly ? demo.current : demo.logs).slice(0, 100);
+  function person(): Person { return { barcode: field('barcode').value, fullname: field('fullname').value, room: field('room').value, profession: field('profession').value }; }
+  function button(label: string, action: () => void) {
+    const element = document.createElement('button'); element.type = 'button'; element.className = 'demo-button'; element.textContent = label; element.addEventListener('click', action); return element;
+  }
+  function row(values: (string | number)[]) {
+    const tr = document.createElement('tr');
+    for (const value of values) { const td = document.createElement('td'); td.textContent = String(value); tr.append(td); }
+    return tr;
+  }
+  function render() {
+    document.getElementById('inside-count')!.textContent = String(demo.current.length);
+    document.getElementById('log-heading')!.textContent = currentOnly ? 'Current visitors' : 'Visit history';
+    toggle.textContent = currentOnly ? 'Show all history' : 'Show current visitors'; toggle.setAttribute('aria-pressed', String(currentOnly));
+    const body = document.getElementById('log-body')!; body.replaceChildren();
+    for (const log of visible()) {
+      const tr = row([log.id, log.barcode, log.direction, new Date(log.createdOn).toLocaleString(), log.fullname, log.room, log.profession]);
+      const cell = document.createElement('td');
+      const remove = button('Delete', () => {
+        if (!window.confirm('Delete this sample visit record?')) return;
+        try { demo.removeLog(log.id); status.textContent = 'Sample visit deleted. Visitor count recalculated.'; render(); } catch (error) { status.textContent = (error as Error).message; render(); }
+      });
+      remove.dataset.logId = String(log.id); remove.disabled = !demo.canDelete(log.id); remove.setAttribute('aria-label', `Delete record ${log.id} for ${log.fullname}`); cell.append(remove); tr.append(cell); body.append(tr);
+    }
+    if (!body.children.length) { const tr = row([currentOnly ? 'No visitors currently inside.' : 'No activity yet.']); (tr.firstChild as HTMLTableCellElement).colSpan = 8; body.append(tr); }
+    const cards = document.getElementById('staff-body')!; cards.replaceChildren();
+    for (const card of [...demo.cards.values()].sort((a, b) => a.fullname.localeCompare(b.fullname))) {
+      const tr = row([card.barcode, card.fullname, card.room, card.profession]); const cell = document.createElement('td');
+      cell.append(button('Edit', () => { field('staff-barcode').value = card.barcode; field('staff-name').value = card.fullname; field('staff-room').value = card.room; field('staff-role').value = card.profession; field('staff-barcode').focus(); }));
+      cell.append(button('Delete', () => { if (window.confirm(`Delete sample card ${card.barcode}?`)) { demo.removeCard(card.barcode); staffStatus.textContent = 'Card removed. Visit history is retained.'; render(); } }));
+      tr.append(cell); cards.append(tr);
+    }
+    if (!cards.children.length) { const tr = row(['No registered cards. Add one above.']); (tr.firstChild as HTMLTableCellElement).colSpan = 5; cards.append(tr); }
+  }
+  function afterSave(message: string) { form.reset(); status.textContent = message; render(); field('barcode').focus(); }
+  function scan() {
+    const barcode = field('barcode').value.trim();
+    if (!barcode) { status.textContent = 'Enter a barcode first.'; field('barcode').focus(); return; }
+    const log = demo.scan(barcode);
+    if (log) afterSave(`${log.direction === 'IN' ? 'Checked in' : 'Checked out'}: ${log.fullname} · ${log.barcode}`);
+    else { field('fullname').value = ''; field('room').value = ''; (form.querySelector('[value="IN"]') as HTMLInputElement).checked = true; status.textContent = 'New barcode. Enter a fictional name, room, and role, then Save visit.'; field('fullname').focus(); }
+  }
+  document.getElementById('scan-barcode')!.addEventListener('click', scan);
+  field('barcode').addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); scan(); } });
+  document.querySelectorAll<HTMLButtonElement>('[data-sample]').forEach(element => element.addEventListener('click', () => { field('barcode').value = element.dataset.sample!; field('barcode').focus(); }));
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    try { const direction = (form.querySelector('[name="direction"]:checked') as HTMLInputElement).value as Direction; const log = demo.save(person(), direction); afterSave(`Saved ${log.direction}: ${log.fullname} · ${log.barcode}`); } catch (error) { status.textContent = (error as Error).message; field('fullname').focus(); }
+  });
+  staffForm.addEventListener('submit', event => { event.preventDefault(); try { demo.saveCard({ barcode: field('staff-barcode').value, fullname: field('staff-name').value, room: field('staff-room').value, profession: field('staff-role').value }); staffForm.reset(); staffStatus.textContent = 'Reusable card saved. Try scanning its barcode.'; render(); } catch (error) { staffStatus.textContent = (error as Error).message; } });
+  toggle.addEventListener('click', () => { currentOnly = !currentOnly; render(); });
+  document.getElementById('export-csv')!.addEventListener('click', () => { const url = URL.createObjectURL(new Blob([visitCsv(visible())], { type: 'text/csv;charset=utf-8' })); const link = document.createElement('a'); link.href = url; link.download = 'carevisit-demo.csv'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); status.textContent = 'CSV exported for the displayed records (timestamps in UTC).'; });
+  document.getElementById('reset-demo')!.addEventListener('click', () => { if (!window.confirm('Clear all sample visits and restore the two example cards?')) return; demo.reset(); currentOnly = false; form.reset(); staffForm.reset(); staffStatus.textContent = ''; status.textContent = 'Demo reset. Sample cards restored.'; render(); field('barcode').focus(); });
+  render();
+  setInterval(() => document.querySelectorAll<HTMLButtonElement>('[data-log-id]').forEach(button => { button.disabled = !demo.canDelete(Number(button.dataset.logId)); }), 1000);
+</script>

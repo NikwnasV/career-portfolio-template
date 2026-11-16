@@ -2,55 +2,119 @@
   {
     "title": "Event Media Cloud (Immich)",
     "description": "A private, self-hosted photo and video sharing platform provided to clients for weddings and events. Guests can seamlessly upload high-resolution media directly to the server via a custom QR code.",
-    "images": [],
-    "tech": ["Immich", "Docker", "Nginx Proxy Manager", "Self-Hosted"],
-    "platforms": ["web", "apple-ios", "android"],
+    "images": [
+      "immich-logo.svg"
+    ],
+    "tech": [
+      "Immich",
+      "Docker",
+      "Nginx Proxy Manager",
+      "Self-Hosted"
+    ],
+    "platforms": [
+      "web",
+      "apple-ios",
+      "android"
+    ],
     "link": "https://cloud.nvarsakis.gr/s/wedding",
-    "category": "Client Service"
+    "category": "Client Service",
+    "imageStyle": "logo"
   },
   {
     "title": "Secure File Exchange",
     "description": "A high-speed, self-hosted file sharing platform utilizing Pingvin Share, designed for secure, private data transfers without relying on third-party cloud limits.",
-    "images": [],
-    "tech": ["Pingvin Share", "Docker", "Web Infrastructure"],
-    "platforms": ["web", "server"],
+    "images": [
+      "pingvin-logo.svg"
+    ],
+    "tech": [
+      "Pingvin Share",
+      "Docker",
+      "Web Infrastructure"
+    ],
+    "platforms": [
+      "web",
+      "server"
+    ],
     "link": "https://nv.etrix.gr",
-    "category": "Infrastructure"
+    "category": "Infrastructure",
+    "imageStyle": "logo"
   },
   {
     "title": "Enterprise Home Lab & VPN",
     "description": "Advanced network architecture featuring a double-NAT MikroTik setup to provide secure, encrypted remote VPN access to internal server environments and services.",
-    "images": [],
-    "tech": ["MikroTik", "VPN", "Routing", "Network Security"],
-    "platforms": ["server"],
+    "images": [
+      "mikrotik-logo.svg"
+    ],
+    "tech": [
+      "MikroTik",
+      "VPN",
+      "Routing",
+      "Network Security"
+    ],
+    "platforms": [
+      "server"
+    ],
     "link": "",
-    "category": "Networking"
+    "category": "Networking",
+    "imageStyle": "logo"
   },
   {
     "title": "VoIP Telephony Server",
     "description": "Fully configured and virtualized FreePBX system handling internal communications routing and SIP trunking, with a strictly isolated management interface for security.",
-    "images": [],
-    "tech": ["FreePBX", "VoIP", "SIP", "Linux"],
-    "platforms": ["server"],
+    "images": [
+      "freepbx-logo.svg"
+    ],
+    "tech": [
+      "FreePBX",
+      "VoIP",
+      "SIP",
+      "Linux"
+    ],
+    "platforms": [
+      "server"
+    ],
     "link": "",
-    "category": "Telephony"
+    "category": "Telephony",
+    "imageStyle": "logo"
   },
   {
-    "title": "RideLink",
-    "description": "An IoT mobile application project built for vehicle navigation and real-time notifications, utilizing an ESP32 microcontroller to interface with an external display.",
+    "title": "Container Based Vessel Monitoring System",
+    "description": "A Docker-deployed IoT vessel monitoring application with a Java / Javalin backend. The dashboard brings together vessel status, engine diagnostics, sensor analytics, and an alarm and event log.",
     "images": [],
-    "tech": ["ESP32", "C++", "IoT", "Embedded Systems"],
-    "platforms": ["android"],
-    "link": "",
-    "category": "Hardware / IoT"
+    "visualIcon": "mdi:ferry",
+    "visualLabel": "Vessel Monitoring",
+    "visualSubtitle": "Vessel monitoring · IoT & telemetry",
+    "tech": [
+      "Java",
+      "Javalin",
+      "Docker",
+      "IoT"
+    ],
+    "platforms": [
+      "web",
+      "server"
+    ],
+    "link": "https://vessel.nvarsakis.gr",
+    "category": "IoT / Marine Technology"
   },
   {
-    "title": "TheseusCheckIn",
-    "description": "A desktop visitor management application built with Java and Maven. Features a robust MVC architecture, SQL database integration, and a packaged Windows installer.",
+    "title": "CareVisit — Visitor Management",
+    "description": "A Java Swing / FlatLaf desktop visitor management system for a rehabilitation centre. Features barcode check-in and check-out, reusable staff cards, current visitor counts, MySQL-backed visit history, and CSV export.",
     "images": [],
-    "tech": ["Java", "Maven", "SQL", "MVC"],
-    "platforms": ["windows"],
-    "link": "",
-    "category": "Software Development"
+    "tech": [
+      "Java",
+      "Swing / FlatLaf",
+      "MySQL",
+      "Barcode Scanning"
+    ],
+    "platforms": [
+      "windows"
+    ],
+    "link": "/demos/carevisit/",
+    "category": "Software Development",
+    "visualIcon": "mdi:barcode-scan",
+    "visualLabel": "CareVisit",
+    "visualSubtitle": "Visitor management · Rehabilitation care",
+    "linkLabel": "Try barcode workflow demo"
   }
 ]
