@@ -99,13 +99,13 @@
   },
   {
     "title": "CareVisit — Visitor Management",
-    "description": "A Java desktop visitor management system for a rehabilitation centre. Barcode scanning supports visitor check-in and check-out, with visit records stored in MySQL.",
+    "description": "A Java Swing / FlatLaf desktop visitor management system for a rehabilitation centre. Features barcode check-in and check-out, reusable staff cards, current visitor counts, MySQL-backed visit history, and CSV export.",
     "images": [],
     "tech": [
       "Java",
+      "Swing / FlatLaf",
       "MySQL",
-      "Barcode Scanning",
-      "MVC"
+      "Barcode Scanning"
     ],
     "platforms": [
       "windows"
