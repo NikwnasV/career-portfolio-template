@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { careVisitStructuredData } from '../../lib/seo';
 ---
-<Layout title="CareVisit | Interactive visitor management demo" description="Explore a source-informed demo of a Java desktop visitor management system: barcode scanning, visitor logs, staff cards, and CSV export.">
+<Layout structuredData={careVisitStructuredData(Astro.site!)} title="CareVisit | Interactive visitor management demo" description="Explore a source-informed demo of a Java desktop visitor management system: barcode scanning, visitor logs, staff cards, and CSV export.">
   <section class="section-container max-w-6xl mx-auto">
     <a href="/#projects" class="text-accent underline underline-offset-4">← Back to projects</a>
     <p class="text-accent text-xs uppercase tracking-widest mt-10 mb-3">Interactive portfolio demo</p>

@@ -6,6 +6,7 @@ import Tech from "../components/tech.astro";
 import Projects from "../components/projects.astro";
 import Contact from "../components/contact.astro";
 import Career from "../components/career.astro";
+import { profileStructuredData } from '../lib/seo';
 import localData from '../data/home.json';
 
 interface ProfileData {
@@ -33,7 +34,7 @@ if (isApiLive && BASE_URL) {
 const { webpageTitle } = data;
 ---
 
-<Layout title={webpageTitle}>
+<Layout title={webpageTitle} structuredData={profileStructuredData(Astro.site!)}>
   	<Nav />
 	<Home />
 	<Career />
