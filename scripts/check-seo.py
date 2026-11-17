@@ -46,6 +46,9 @@ for url in urls:
     assert page.links.get('canonical') == url
     assert page.meta.get('og:url') == url
     assert 'noindex' not in page.meta.get('robots', '')
+    assert page.links.get('icon') == '/favicon-96x96.png'
+    assert page.links.get('shortcut icon') == '/favicon.ico'
+    assert page.links.get('apple-touch-icon') == '/apple-touch-icon.png'
     assert page.meta.get('description') and page.meta.get('og:description') == page.meta['description']
     assert page.meta.get('og:image') == origin + '/social-card.png'
     assert page.meta.get('twitter:card') == 'summary_large_image'
@@ -62,3 +65,12 @@ assert 'noindex' in missing.meta['robots'] and 'canonical' not in missing.links
 png = (root / 'social-card.png').read_bytes()
 assert png[:8] == b'\x89PNG\r\n\x1a\n' and struct.unpack('>II', png[16:24]) == (1200, 630)
 print('PASS: sitemap, robots, canonical URLs, indexability, JSON-LD, project fragments, unique descriptions, 404 noindex, social image.')
+
+for filename, size in [('favicon-96x96.png', 96), ('apple-touch-icon.png', 180)]:
+    data = (root / filename).read_bytes()
+    assert data[:8] == b'\x89PNG\r\n\x1a\n' and struct.unpack('>II', data[16:24]) == (size, size)
+ico = (root / 'favicon.ico').read_bytes()
+assert ico[:4] == b'\0\0\1\0'
+entries = struct.unpack('<H', ico[4:6])[0]
+assert any(ico[6 + 16 * i] == 96 and ico[7 + 16 * i] == 96 for i in range(entries))
+print('PASS: stable favicon links, 96px PNG, 180px touch icon and multi-resolution ICO.')
