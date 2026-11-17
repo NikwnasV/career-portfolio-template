@@ -12,7 +12,7 @@ Run `python scripts/check-seo.py` after the Astro production build to validate t
 
 ## Favicon
 
-The favicon is rendered from the existing `src/assets/favicon.svg` identity. The primary icon is a square 96×96 PNG at `/favicon-96x96.png`. `/favicon.ico` contains multiple sizes including 96×96, and `/apple-touch-icon.png` is 180×180. Keep these URLs stable so crawlers can refresh them. Updating the site does not immediately refresh Google's cached favicon; request a homepage recrawl in Search Console and allow time for processing.
+The favicon uses the owner's transparent logo from https://transfer.nvarsakis.gr/img/logo.png. Its transparent canvas is centred while retaining all artwork, and the logo fills the available width. The primary icon is a square 96×96 PNG at `/favicon.png`; `/favicon-96x96.png` remains as a compatible copy. `/favicon.ico` contains multiple sizes including 96×96, and `/apple-touch-icon.png` is 180×180. Keep these URLs stable. The browser controls the tab icon's display size. Google refreshes the cached favicon separately from page indexing.
 
 Google's requirements: https://developers.google.com/search/docs/appearance/favicon-in-search
 
