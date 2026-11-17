@@ -10,6 +10,12 @@
 
 Run `python scripts/check-seo.py` after the Astro production build to validate the generated crawler endpoints, metadata, structured data and social image.
 
+## Favicon
+
+The favicon is rendered from the existing `src/assets/favicon.svg` identity. The primary icon is a square 96×96 PNG at `/favicon-96x96.png`. `/favicon.ico` contains multiple sizes including 96×96, and `/apple-touch-icon.png` is 180×180. Keep these URLs stable so crawlers can refresh them. Updating the site does not immediately refresh Google's cached favicon; request a homepage recrawl in Search Console and allow time for processing.
+
+Google's requirements: https://developers.google.com/search/docs/appearance/favicon-in-search
+
 ## Google Search Console (owner action)
 
 1. Open https://search.google.com/search-console/ and add the Domain property `nvarsakis.gr`.
